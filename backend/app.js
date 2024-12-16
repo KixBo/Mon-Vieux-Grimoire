@@ -11,8 +11,10 @@ mongoose.connect('mongodb+srv://kixboy:Pchmylzmgr1@cluster0.vh7gi.mongodb.net/?r
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
 const bookRoutes = require('./routes/book');
+const userRoutes = require('./routes/user');
 
 app.use('/api/books', bookRoutes);
+app.use('/api/auth', userRoutes);
 
 // Intercepte les requêtes avec un content-type json et met à disposition le body dans l'objet requête (req.body)
 app.use(express.json());
