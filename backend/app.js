@@ -1,5 +1,7 @@
 const express = require("express");
 
+const path = require('path');
+
 const app = express();
 
 const mongoose = require('mongoose');
@@ -15,6 +17,7 @@ const userRoutes = require('./routes/user');
 
 app.use('/api/books', bookRoutes);
 app.use('/api/auth', userRoutes);
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 // Intercepte les requêtes avec un content-type json et met à disposition le body dans l'objet requête (req.body)
 app.use(express.json());
