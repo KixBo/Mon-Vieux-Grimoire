@@ -15,12 +15,6 @@ mongoose.connect('mongodb+srv://kixboy:Pchmylzmgr1@cluster0.vh7gi.mongodb.net/?r
 const bookRoutes = require('./routes/book');
 const userRoutes = require('./routes/user');
 
-app.use('/api/books', bookRoutes);
-app.use('/api/auth', userRoutes);
-app.use('/images', express.static(path.join(__dirname, 'images')));
-
-// Intercepte les requêtes avec un content-type json et met à disposition le body dans l'objet requête (req.body)
-app.use(express.json());
 
 // Headers pour les autorisation cors
 app.use((req, res, next) => {
@@ -29,6 +23,13 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
   next();
 });
+
+// Intercepte les requêtes avec un content-type json et met à disposition le body dans l'objet requête (req.body)
+app.use(express.json());
+
+app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use('/api/books', bookRoutes);
+app.use('/api/auth', userRoutes);
 
 
 
