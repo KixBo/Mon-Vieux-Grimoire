@@ -61,6 +61,10 @@ exports.getOneBook = async (req, res, next) => {
 
 exports.modifyBook = async (req, res, next) => {
   try {
+    if (book.userId !== req.auth.userId) {
+      return res.status(401).json({ message: "Non autorisé" });
+    }
+
     const bookObject = req.file ? { ...JSON.parse(req.body.book) } : { ...req.body };
 
     if (req.file) {
@@ -79,10 +83,6 @@ exports.modifyBook = async (req, res, next) => {
     delete bookObject._userId;
 
     const book = await Book.findOne({ _id: req.params.id });
-
-    if (book.userId !== req.auth.userId) {
-      return res.status(401).json({ message: "Non autorisé" });
-    }
 
     await Book.updateOne({ _id: req.params.id }, { ...bookObject, _id: req.params.id });
     res.status(200).json({ message: "Livre modifié avec succès !" });

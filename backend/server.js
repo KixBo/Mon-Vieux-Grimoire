@@ -2,7 +2,7 @@ require("dotenv").config();
 const http = require("http");
 const app = require("./app");
 
-const port = "4000";
+const port = process.env.PORT || 4000;
 
 // Crée un serveur HTTP qui utilise l'application Express (app) pour traiter les requêtes
 const server = http.createServer(app);
